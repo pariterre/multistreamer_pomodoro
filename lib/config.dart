@@ -1,7 +1,5 @@
 import 'package:twitch_manager/twitch_manager.dart';
 
-const nbStreamers = 2;
-
 const twitchAppName = 'MultiStreamer Pomodoro Counter';
 const twitchAppId = 'wuxnu9zxzhgu3noztxtgdsulk4c950';
 const twitchRedirect = 'https://twitchauthentication.pariterre.net:3000';

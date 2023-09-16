@@ -8,7 +8,7 @@ class ShowParticipantsPage extends StatefulWidget {
   const ShowParticipantsPage({super.key});
 
   static const route = '/show-participants-page';
-  final deltaTime = 1; // In minutes
+  final deltaTime = 30; // In seconds
 
   @override
   State<ShowParticipantsPage> createState() => _ShowParticipantsPageState();
@@ -51,11 +51,19 @@ class _ShowParticipantsPageState extends State<ShowParticipantsPage> {
               TwitchInterface.instance.managers[streamerId]!.api.streamerId))!;
       _streamerNames[streamerId] = streamerLogin;
 
-      Timer.periodic(Duration(minutes: widget.deltaTime), (timer) async {
+      Timer.periodic(Duration(seconds: widget.deltaTime), (timer) async {
         final chatters = await TwitchInterface
             .instance.managers[streamerId]!.api
             .fetchChatters();
         if (chatters == null) return;
+
+        final api = TwitchInterface.instance.managers[streamerId]?.api;
+        if (api == null) return;
+
+        if (!(await api.isUserLive(api.streamerId))!) {
+          debugPrint('Streamer $streamerLogin is not live');
+        }
+
         _addChatterTime(
             streamerName: _streamerNames[streamerId]!, chatters: chatters);
       });
@@ -110,9 +118,9 @@ class _ChatterTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ...chatter.duration.keys.map((streamer) => Text(
-                        '$streamer (${chatter.duration[streamer]} minutes)')),
+                        '$streamer (${chatter.duration[streamer]! ~/ 60} minutes)')),
                     Text(
-                        'En tout (${chatter.duration.values.fold(0, (prev, e) => prev + e)} minutes)')
+                        'En tout (${chatter.duration.values.fold(0, (prev, e) => prev + e) ~/ 60} minutes)')
                   ],
                 ),
         ),
