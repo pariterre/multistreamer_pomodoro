@@ -25,7 +25,8 @@ class _ConnectedStreamersPageState extends State<ConnectedStreamersPage> {
         mockOptions: TwitchInterface.instance.mockOptions,
         onFinishedConnexion: (manager) => Navigator.pop(context, manager),
         appInfo: TwitchInterface.instance.appInfo,
-        loadPreviousSession: false,
+        saveKey: streamerId,
+        reload: true,
       )),
     );
     if (!mounted || manager == null) return;

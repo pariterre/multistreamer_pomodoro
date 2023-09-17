@@ -60,9 +60,8 @@ class _ShowParticipantsPageState extends State<ShowParticipantsPage> {
         final api = TwitchInterface.instance.managers[streamerId]?.api;
         if (api == null) return;
 
-        if (!(await api.isUserLive(api.streamerId))!) {
-          debugPrint('Streamer $streamerLogin is not live');
-        }
+        // If the user is not live, do not add time to their viewers
+        if (!(await api.isUserLive(api.streamerId))!) return;
 
         _addChatterTime(
             streamerName: _streamerNames[streamerId]!, chatters: chatters);
