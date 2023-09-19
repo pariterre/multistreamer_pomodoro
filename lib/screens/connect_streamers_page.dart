@@ -124,8 +124,6 @@ class _ConnectedStreamersPageState extends State<ConnectedStreamersPage> {
   }
 
   Widget _buildStreamerButton({required int streamerIndex}) {
-    final saveId = _streamerControllers[streamerIndex].text;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -142,9 +140,10 @@ class _ConnectedStreamersPageState extends State<ConnectedStreamersPage> {
             children: [
               ElevatedButton(
                   onPressed: TwitchInterface.instance.connectedStreamerIds
-                          .contains(saveId)
+                          .contains(_streamerControllers[streamerIndex].text)
                       ? null
-                      : () => _connectStreamer(saveId: saveId),
+                      : () => _connectStreamer(
+                          saveId: _streamerControllers[streamerIndex].text),
                   child: Text('Connect streamer ${streamerIndex + 1}')),
               const SizedBox(width: 4),
               InkWell(
