@@ -13,16 +13,18 @@ import 'package:multistreamer_pomodoro/widgets/schedule_page.dart';
 import 'package:multistreamer_pomodoro/widgets/viewers_page.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  const MainPage({super.key, required this.isClient});
 
   static const route = '/main-page';
   final deltaTime = 30; // In seconds
+  final bool isClient;
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
+  bool _isInitialize = false;
   late final _tabController = TabController(length: 2, vsync: this);
 
   final streamersInformation = [
@@ -79,8 +81,12 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   ];
 
   void _addChatterTime(
-      {required String streamerName, required List<String> currentChatters}) {
+      {required Streamer streamer,
+      required List<String> currentChatters}) async {
     final chatters = ChattersProvided.of(context, listen: false);
+    final followers = (await TwitchInterface
+        .instance.managers[streamer.streamerId]!.api
+        .fetchFollowers())!;
 
     for (final chatterName in currentChatters) {
       // Check if it is a new chatter
@@ -92,12 +98,15 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
           chatters.firstWhere((chatter) => chatter.name == chatterName);
 
       // Check if it is the first time on a specific chanel
-      if (currentChatter.hasNotStreamer(streamerName)) {
-        currentChatter.addStreamer(streamerName);
+      if (currentChatter.hasNotStreamer(streamer.name)) {
+        currentChatter.addStreamer(streamer.name);
       }
 
       // Add one time increment to the user
-      currentChatter.incrementTimeWatching(widget.deltaTime, of: streamerName);
+      if (followers.contains(currentChatter.name)) {
+        currentChatter.incrementTimeWatching(widget.deltaTime,
+            of: streamer.name);
+      }
 
       // Update the provider
       chatters.add(currentChatter);
@@ -135,6 +144,11 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       );
       return;
     }
+    if (widget.isClient) {
+      _isInitialize = true;
+      setState(() {});
+      return;
+    }
 
     for (final streamerId in TwitchInterface.instance.connectedStreamerIds) {
       final streamerLogin =
@@ -148,7 +162,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       Timer.periodic(Duration(seconds: widget.deltaTime), (timer) async {
         final chatters = await TwitchInterface
             .instance.managers[streamerId]!.api
-            .fetchChatters();
+            .fetchChatters(blacklist: ['CommanderRoot', 'StreamElements']);
         if (chatters == null) return;
 
         final api = TwitchInterface.instance.managers[streamerId]?.api;
@@ -158,49 +172,50 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         if (!(await api.isUserLive(api.streamerId))!) return;
 
         _addChatterTime(
-            streamerName:
-                streamers.firstWhere((e) => e.streamerId == streamerId).name,
+            streamer: streamers.firstWhere((e) => e.streamerId == streamerId),
             currentChatters: chatters);
       });
     }
+    _isInitialize = true;
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final chatters = ChattersProvided.of(context);
-
     return Scaffold(
-      body: chatters.isEmpty
-          ? const CircularProgressIndicator()
-          : Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                const Background(),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(height: 120),
-                    Menu(
-                        items: const ['Auditeurs & Auditrices', 'Horaire'],
-                        tabController: _tabController),
-                    const SizedBox(height: 36),
-                    Expanded(
-                      child: SizedBox(
-                        width: 500,
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: [
-                            ViewersPage(chatters: chatters.toList()),
-                            SchedulePage(streamers: streamersInformation),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+      body: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          const Background(),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 120),
+              Menu(
+                  items: const ['Auditeurs & Auditrices', 'Horaire'],
+                  tabController: _tabController),
+              const SizedBox(height: 36),
+              Expanded(
+                child: SizedBox(
+                  width: 500,
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      !_isInitialize
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ))
+                          : const ViewersPage(),
+                      SchedulePage(streamers: streamersInformation),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

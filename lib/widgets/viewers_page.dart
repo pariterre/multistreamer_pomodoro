@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:multistreamer_pomodoro/models/chatter.dart';
+import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
 
 class ViewersPage extends StatelessWidget {
-  const ViewersPage({
-    super.key,
-    required this.chatters,
-  });
-
-  final List<Chatter> chatters;
+  const ViewersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final chatters = ChattersProvided.of(context, listen: false);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -20,12 +18,15 @@ class ViewersPage extends StatelessWidget {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         const SizedBox(height: 12),
-        Expanded(child: _buildChattersListTile(context)),
+        chatters.isEmpty
+            ? const Text('Aucun auditeur ou auditrice pour l\'instant')
+            : Expanded(child: _buildChattersListTile(context)),
       ],
     );
   }
 
   Widget _buildChattersListTile(BuildContext context) {
+    final chatters = ChattersProvided.of(context);
     final sortedChatters = [...chatters]
       ..sort((a, b) => b.totalWatchingTime - a.totalWatchingTime);
 
