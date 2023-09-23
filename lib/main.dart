@@ -4,6 +4,7 @@ import 'package:multistreamer_pomodoro/config.dart';
 import 'package:multistreamer_pomodoro/firebase_options.dart';
 import 'package:multistreamer_pomodoro/models/twitch_interface.dart';
 import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
+import 'package:multistreamer_pomodoro/providers/streamers_provided.dart';
 import 'package:multistreamer_pomodoro/screens/connect_streamers_page.dart';
 import 'package:multistreamer_pomodoro/screens/show_participants_page.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => ChattersProvided()),
+          ChangeNotifierProvider(create: (context) => StreamersProvided()),
         ],
         child: MaterialApp(
           title:

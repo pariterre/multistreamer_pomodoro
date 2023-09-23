@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:multistreamer_pomodoro/models/chatter.dart';
+import 'package:multistreamer_pomodoro/models/streamer.dart';
 import 'package:multistreamer_pomodoro/models/twitch_interface.dart';
 import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
+import 'package:multistreamer_pomodoro/providers/streamers_provided.dart';
 
 class ShowParticipantsPage extends StatefulWidget {
   const ShowParticipantsPage({super.key});
@@ -16,8 +18,6 @@ class ShowParticipantsPage extends StatefulWidget {
 }
 
 class _ShowParticipantsPageState extends State<ShowParticipantsPage> {
-  final Map<String, String> _streamerNames = {};
-
   void _addChatterTime(
       {required String streamerName, required List<String> currentChatters}) {
     final chatters = ChattersProvided.of(context, listen: false);
@@ -48,15 +48,36 @@ class _ShowParticipantsPageState extends State<ShowParticipantsPage> {
   @override
   void initState() {
     super.initState();
-    _prepareListTwitchInterface();
+    _prepareListTwitchInterface(maxRetries: 10, maxWaitingTime: 2000);
   }
 
-  Future<void> _prepareListTwitchInterface() async {
+  Future<void> _prepareListTwitchInterface(
+      {int retries = 0,
+      required int maxWaitingTime,
+      required int maxRetries}) async {
+    // Wait for at least X seconds to load data. If none are received thed,
+    // we can assume it is a fresh loading
+    final streamers = StreamersProvided.of(context, listen: false);
+    final chatters = ChattersProvided.of(context, listen: false);
+    if (retries < maxRetries && (streamers.isEmpty || chatters.isEmpty)) {
+      await Future.delayed(
+          Duration(milliseconds: maxWaitingTime ~/ maxRetries));
+      _prepareListTwitchInterface(
+        retries: retries + 1,
+        maxRetries: maxRetries,
+        maxWaitingTime: maxWaitingTime,
+      );
+      return;
+    }
+
     for (final streamerId in TwitchInterface.instance.connectedStreamerIds) {
       final streamerLogin =
           (await TwitchInterface.instance.managers[streamerId]!.api.login(
               TwitchInterface.instance.managers[streamerId]!.api.streamerId))!;
-      _streamerNames[streamerId] = streamerLogin;
+
+      if (!streamers.any((e) => e.name == streamerLogin)) {
+        streamers.add(Streamer(streamerId: streamerId, name: streamerLogin));
+      }
 
       Timer.periodic(Duration(seconds: widget.deltaTime), (timer) async {
         final chatters = await TwitchInterface
@@ -71,7 +92,8 @@ class _ShowParticipantsPageState extends State<ShowParticipantsPage> {
         if (!(await api.isUserLive(api.streamerId))!) return;
 
         _addChatterTime(
-            streamerName: _streamerNames[streamerId]!,
+            streamerName:
+                streamers.firstWhere((e) => e.streamerId == streamerId).name,
             currentChatters: chatters);
       });
     }
@@ -84,21 +106,23 @@ class _ShowParticipantsPageState extends State<ShowParticipantsPage> {
 
     return Scaffold(
       body: Center(
-        child: _streamerNames.isEmpty
+        child: chatters.isEmpty
             ? const CircularProgressIndicator()
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Auditeur\u2022trice présent\u2022e par chaine',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 12),
-                  ...chatters.map((chatter) => Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
-                        child: _ChatterTile(chatter: chatter),
-                      )),
-                ],
+            : SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Auditeur\u2022trice présent\u2022e par chaine',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 12),
+                    ...chatters.map((chatter) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12.0),
+                          child: _ChatterTile(chatter: chatter),
+                        )),
+                  ],
+                ),
               ),
       ),
     );
