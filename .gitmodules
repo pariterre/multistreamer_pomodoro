@@ -1,3 +1,6 @@
 [submodule "plugins/twitch_manager"]
 	path = plugins/twitch_manager
 	url = https://github.com/pariterre/twitch_manager.git
+[submodule "plugins/enhanced_containers"]
+	path = plugins/enhanced_containers
+	url = https://github.com/pariterre/enhanced_containers.git

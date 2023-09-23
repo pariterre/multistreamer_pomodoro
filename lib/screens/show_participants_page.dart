@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:multistreamer_pomodoro/models/chatter.dart';
 import 'package:multistreamer_pomodoro/models/twitch_interface.dart';
+import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
 
 class ShowParticipantsPage extends StatefulWidget {
   const ShowParticipantsPage({super.key});
@@ -16,24 +17,30 @@ class ShowParticipantsPage extends StatefulWidget {
 
 class _ShowParticipantsPageState extends State<ShowParticipantsPage> {
   final Map<String, String> _streamerNames = {};
-  final Map<String, Chatter> _chatters = {};
 
   void _addChatterTime(
-      {required String streamerName, required List<String> chatters}) {
-    for (final chatterName in chatters) {
+      {required String streamerName, required List<String> currentChatters}) {
+    final chatters = ChattersProvided.of(context, listen: false);
+
+    for (final chatterName in currentChatters) {
       // Check if it is a new chatter
-      if (!_chatters.keys.contains(chatterName)) {
-        _chatters[chatterName] = Chatter(name: chatterName);
+      if (!chatters.any((chatter) => chatter.name == chatterName)) {
+        chatters.add(Chatter(name: chatterName));
+        continue; // We must wait for firebase to respond
       }
+      final currentChatter =
+          chatters.firstWhere((chatter) => chatter.name == chatterName);
 
       // Check if it is the first time on a specific chanel
-      if (!_chatters[chatterName]!.duration.containsKey(streamerName)) {
-        _chatters[chatterName]!.duration[streamerName] = 0;
+      if (currentChatter.hasNotStreamer(streamerName)) {
+        currentChatter.addStreamer(streamerName);
       }
 
       // Add one time increment to the user
-      _chatters[chatterName]!.duration[streamerName] =
-          _chatters[chatterName]!.duration[streamerName]! + widget.deltaTime;
+      currentChatter.incrementTimeWatching(widget.deltaTime, of: streamerName);
+
+      // Update the provider
+      chatters.add(currentChatter);
     }
     setState(() {});
   }
@@ -64,7 +71,8 @@ class _ShowParticipantsPageState extends State<ShowParticipantsPage> {
         if (!(await api.isUserLive(api.streamerId))!) return;
 
         _addChatterTime(
-            streamerName: _streamerNames[streamerId]!, chatters: chatters);
+            streamerName: _streamerNames[streamerId]!,
+            currentChatters: chatters);
       });
     }
     setState(() {});
@@ -72,6 +80,8 @@ class _ShowParticipantsPageState extends State<ShowParticipantsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final chatters = ChattersProvided.of(context);
+
     return Scaffold(
       body: Center(
         child: _streamerNames.isEmpty
@@ -84,9 +94,9 @@ class _ShowParticipantsPageState extends State<ShowParticipantsPage> {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 12),
-                  ..._chatters.keys.map((name) => Padding(
+                  ...chatters.map((chatter) => Padding(
                         padding: const EdgeInsets.only(bottom: 12.0),
-                        child: _ChatterTile(chatter: _chatters[name]!),
+                        child: _ChatterTile(chatter: chatter),
                       )),
                 ],
               ),
@@ -111,15 +121,15 @@ class _ChatterTile extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 12.0),
-          child: chatter.duration.isEmpty
+          child: chatter.isEmpty
               ? const Text('Aucun')
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ...chatter.duration.keys.map((streamer) => Text(
-                        '$streamer (${chatter.duration[streamer]! ~/ 60} minutes)')),
+                    ...chatter.streamerNames.map((streamer) => Text(
+                        '$streamer (${chatter.watchingTime(of: streamer) ~/ 60} minutes)')),
                     Text(
-                        'En tout (${chatter.duration.values.fold(0, (prev, e) => prev + e) ~/ 60} minutes)')
+                        'En tout (${chatter.totalWatchingTime ~/ 60} minutes)'),
                   ],
                 ),
         ),
