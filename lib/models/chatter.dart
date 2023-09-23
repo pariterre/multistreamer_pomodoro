@@ -38,8 +38,11 @@ class Chatter extends ItemSerializable {
 
   Chatter.fromSerialized(map)
       : name = map['name'],
-        _duration = (map['duration'] as List?)?.map<int>((e)=> e).toList() ?? [],
-        _fromStreamers = (map['fromStreamers'] as List?)?.map<String>((e)=> e).toList() ?? [],
+        _duration =
+            (map['duration'] as List?)?.map<int>((e) => e).toList() ?? [],
+        _fromStreamers =
+            (map['fromStreamers'] as List?)?.map<String>((e) => e).toList() ??
+                [],
         super.fromSerialized(map);
 
   @override

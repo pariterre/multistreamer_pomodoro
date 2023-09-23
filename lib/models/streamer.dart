@@ -12,9 +12,11 @@ class Streamer extends ItemSerializable {
         super.fromSerialized(map);
 
   @override
-  Map<String, dynamic> serializedMap() => {
-        'id': id,
-        'streamerId': streamerId,
-        'name': name,
-      };
+  Map<String, dynamic> serializedMap() {
+    return {
+      'id': id,
+      'streamerId': streamerId,
+      'name': name,
+    };
+  }
 }

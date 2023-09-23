@@ -13,6 +13,8 @@ dependencies:
     path: ./plugins/twitch_manager
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.2.1
+  intl: ^0.18.1
+  url_launcher: ^6.1.14
   enhanced_containers:
     path: ./plugins/enhanced_containers
   provider: ^6.0.5
@@ -25,3 +27,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/

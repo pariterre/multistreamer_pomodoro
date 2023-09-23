@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multistreamer_pomodoro/models/twitch_interface.dart';
-import 'package:multistreamer_pomodoro/screens/show_participants_page.dart';
+import 'package:multistreamer_pomodoro/screens/main_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:twitch_manager/twitch_manager.dart';
 
@@ -77,7 +77,7 @@ class _ConnectedStreamersPageState extends State<ConnectedStreamersPage> {
     if (_streamerControllers.isNotEmpty &&
         TwitchInterface.instance.connectedStreamerIds.length ==
             _streamerControllers.length) {
-      Navigator.of(context).pushReplacementNamed(ShowParticipantsPage.route);
+      Navigator.of(context).pushReplacementNamed(MainPage.route);
     }
     setState(() {});
   }
