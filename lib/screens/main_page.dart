@@ -50,7 +50,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
             children: [
               const SizedBox(height: 120),
               Menu(
-                  items: const ['Auditeurs & Auditrices', 'Horaire'],
+                  items: const ['Horaire', 'Auditeurs & Auditrices'],
                   tabController: _tabController),
               const SizedBox(height: 36),
               Expanded(
@@ -59,12 +59,12 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                   child: TabBarView(
                     controller: _tabController,
                     children: [
+                      const SchedulePage(),
                       _isInitialized
                           ? const ViewersPage()
                           : const Center(
                               child: CircularProgressIndicator(
                                   color: Colors.white)),
-                      const SchedulePage(),
                     ],
                   ),
                 ),
