@@ -92,8 +92,13 @@ class _ConnectedStreamersPageState extends State<ConnectedStreamersPage> {
             children: [
               const SizedBox(height: 24),
               const SizedBox(height: 24),
-              Text('Connect the streamers',
-                  style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                'Connect the streamers',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: Colors.black),
+              ),
               const SizedBox(height: 12),
               for (int i = 0; i < _streamerControllers.length; i++)
                 _buildStreamerButton(streamerIndex: i),
@@ -111,7 +116,7 @@ class _ConnectedStreamersPageState extends State<ConnectedStreamersPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text('Add a streamer',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
         const SizedBox(width: 12),
         InkWell(
           borderRadius: BorderRadius.circular(25),

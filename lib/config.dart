@@ -7,4 +7,5 @@ const authenticationServiceAddress =
     'wss://twitchauthentication.pariterre.net:3002';
 const twitchScope = [
   TwitchScope.chatters,
+  TwitchScope.readFollowers,
 ];

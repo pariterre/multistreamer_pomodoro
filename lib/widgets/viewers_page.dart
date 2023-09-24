@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multistreamer_pomodoro/main.dart';
 import 'package:multistreamer_pomodoro/models/chatter.dart';
 import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
 
@@ -7,7 +8,7 @@ class ViewersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chatters = ChattersProvided.of(context, listen: false);
+    final chatters = ChattersProvided.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,25 +48,24 @@ class _ChatterTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 120, 60, 0),
-            borderRadius: BorderRadius.circular(8)),
-        width: 400,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                chatter.name,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              chatter.isEmpty
-                  ? const Text('Aucun')
-                  : Column(
+    return chatter.isEmpty
+        ? Container()
+        : Card(
+            elevation: 5,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: selectedColor, borderRadius: BorderRadius.circular(8)),
+              width: 400,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      chatter.name,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         ...chatter.streamerNames.map((streamer) => Row(
@@ -80,10 +80,10 @@ class _ChatterTile extends StatelessWidget {
                         Text('${chatter.totalWatchingTime ~/ 60} minutes'),
                       ],
                     ),
-            ],
-          ),
-        ),
-      ),
-    );
+                  ],
+                ),
+              ),
+            ),
+          );
   }
 }

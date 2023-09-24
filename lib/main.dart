@@ -12,6 +12,9 @@ import 'package:multistreamer_pomodoro/screens/main_page.dart';
 import 'package:provider/provider.dart';
 import 'package:twitch_manager/twitch_app_info.dart';
 
+const selectedColor = Color.fromARGB(255, 87, 48, 3);
+const unselectedColor = Color.fromARGB(255, 238, 156, 63);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -30,7 +33,7 @@ void main() async {
     useMock: false,
   );
 
-  runApp(const MyApp(isClientPage: true));
+  runApp(const MyApp(isClientPage: false));
 }
 
 class MyApp extends StatelessWidget {
@@ -48,12 +51,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Le PomoLattePumkin-48h-Relais',
         theme: ThemeData(
-          colorScheme: const ColorScheme.dark(),
           textTheme: const TextTheme(
-            titleLarge: TextStyle(fontWeight: FontWeight.bold),
-            titleMedium: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            titleSmall: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            bodyMedium: TextStyle(fontSize: 16),
+            titleLarge:
+                TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            titleMedium: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
+            titleSmall: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
+            bodyMedium: TextStyle(fontSize: 16, color: Colors.white),
           ),
           useMaterial3: true,
         ),

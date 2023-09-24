@@ -86,7 +86,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     final chatters = ChattersProvided.of(context, listen: false);
     final followers = (await TwitchInterface
         .instance.managers[streamer.streamerId]!.api
-        .fetchFollowers())!;
+        .fetchFollowers(includeStreamer: true))!;
 
     for (final chatterName in currentChatters) {
       // Check if it is a new chatter
@@ -97,16 +97,17 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       final currentChatter =
           chatters.firstWhere((chatter) => chatter.name == chatterName);
 
+      // The chatter must be a follower of the streamer
+      if (!followers.contains(currentChatter.name)) continue;
+
       // Check if it is the first time on a specific chanel
       if (currentChatter.hasNotStreamer(streamer.name)) {
         currentChatter.addStreamer(streamer.name);
       }
 
       // Add one time increment to the user
-      if (followers.contains(currentChatter.name)) {
-        currentChatter.incrementTimeWatching(widget.deltaTime,
-            of: streamer.name);
-      }
+
+      currentChatter.incrementTimeWatching(widget.deltaTime, of: streamer.name);
 
       // Update the provider
       chatters.add(currentChatter);

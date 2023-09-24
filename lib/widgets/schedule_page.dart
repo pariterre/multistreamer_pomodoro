@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:multistreamer_pomodoro/main.dart';
 import 'package:multistreamer_pomodoro/models/streamer_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -51,11 +52,15 @@ class _StreamerTile extends StatelessWidget {
   Widget build(BuildContext context) {
     DateFormat dateFormat = DateFormat('d MMM - HH:mm');
 
+    final now = DateTime.now();
+    final isActive =
+        now.compareTo(info.starting) > 0 && now.compareTo(info.ending) < 0;
+
     return Card(
       elevation: 5,
       child: Container(
         decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 120, 60, 0),
+            color: isActive ? selectedColor : unselectedColor,
             borderRadius: BorderRadius.circular(8)),
         width: 400,
         child: Padding(

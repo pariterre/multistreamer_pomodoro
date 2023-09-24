@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multistreamer_pomodoro/main.dart';
 
 class Menu extends StatefulWidget {
   const Menu({
@@ -61,9 +62,7 @@ class _TabItem extends StatelessWidget {
           child: Container(
               width: 230,
               decoration: BoxDecoration(
-                  color: isActive
-                      ? const Color.fromARGB(255, 87, 48, 3)
-                      : const Color.fromARGB(255, 239, 165, 80)),
+                  color: isActive ? selectedColor : unselectedColor),
               padding: const EdgeInsets.all(12),
               child: Center(
                 child:
