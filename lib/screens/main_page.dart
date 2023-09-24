@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:multistreamer_pomodoro/models/chatter.dart';
 import 'package:multistreamer_pomodoro/models/streamer.dart';
-import 'package:multistreamer_pomodoro/models/streamer_info.dart';
 import 'package:multistreamer_pomodoro/models/twitch_interface.dart';
 import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
 import 'package:multistreamer_pomodoro/providers/streamers_provided.dart';
@@ -26,59 +25,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   bool _isInitialized = false;
   late final _tabController = TabController(length: 2, vsync: this);
-
-  final streamersInformation = [
-    StreamerInfo(
-        name: 'AlchimisteDesMots',
-        url: 'twitch.tv/AlchimisteDesMots',
-        starting: DateTime(2023, 10, 5, 14, 00),
-        length: const Duration(hours: 4)),
-    StreamerInfo(
-        name: 'Le_Sketch',
-        url: 'twitch.tv/Le_Sketch',
-        starting: DateTime(2023, 10, 5, 18, 30),
-        length: const Duration(hours: 4)),
-    StreamerInfo(
-        name: 'WayceUpenFoya',
-        url: 'twitch.tv/WayceUpenFoya',
-        starting: DateTime(2023, 10, 5, 23, 0),
-        length: const Duration(hours: 4)),
-    StreamerInfo(
-        name: 'Helene_Ducrocq',
-        url: 'twitch.tv/Helene_Ducrocq',
-        starting: DateTime(2023, 10, 6, 3, 30),
-        length: const Duration(hours: 4)),
-    StreamerInfo(
-        name: 'elidelivre',
-        url: 'twitch.tv/elidelivre',
-        starting: DateTime(2023, 10, 6, 8, 0),
-        length: const Duration(hours: 4)),
-    StreamerInfo(
-        name: 'Pariterre',
-        url: 'twitch.tv/pariterre',
-        starting: DateTime(2023, 10, 6, 13, 30),
-        length: const Duration(hours: 4)),
-    StreamerInfo(
-        name: 'Fenyxya',
-        url: 'twitch.tv/Fenyxya',
-        starting: DateTime(2023, 10, 6, 18, 0),
-        length: const Duration(hours: 4)),
-    StreamerInfo(
-        name: 'MemePauteure',
-        url: 'twitch.tv/MemepAuteure',
-        starting: DateTime(2023, 10, 7, 2, 30),
-        length: const Duration(hours: 3, minutes: 30)),
-    StreamerInfo(
-        name: 'destinova_glo',
-        url: 'twitch.tv/destinova_glo',
-        starting: DateTime(2023, 10, 7, 6, 30),
-        length: const Duration(hours: 3, minutes: 30)),
-    StreamerInfo(
-        name: 'LizEMyers',
-        url: 'twitch.tv/LizEMyers',
-        starting: DateTime(2023, 10, 7, 10, 30),
-        length: const Duration(hours: 3, minutes: 30)),
-  ];
 
   @override
   void initState() {
@@ -118,7 +64,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                           : const Center(
                               child: CircularProgressIndicator(
                                   color: Colors.white)),
-                      SchedulePage(streamers: streamersInformation),
+                      const SchedulePage(),
                     ],
                   ),
                 ),

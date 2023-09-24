@@ -1,11 +1,11 @@
-class StreamerInfo {
-  final String name;
-  final String url;
+class ScheduleInfo {
+  final String title;
   final DateTime starting;
   final Duration length;
+  final String url;
 
-  const StreamerInfo({
-    required this.name,
+  const ScheduleInfo({
+    required this.title,
     required this.url,
     required this.starting,
     required this.length,

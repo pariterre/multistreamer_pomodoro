@@ -33,7 +33,7 @@ void main() async {
     useMock: false,
   );
 
-  runApp(const MyApp(isClientPage: false));
+  runApp(const MyApp(isClientPage: true));
 }
 
 class MyApp extends StatelessWidget {
