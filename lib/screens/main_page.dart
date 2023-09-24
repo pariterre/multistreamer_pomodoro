@@ -64,7 +64,9 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
               Expanded(
                 child: Center(
                   child: SizedBox(
-                    width: 500,
+                    width: MediaQuery.of(context).size.width > 536
+                        ? 500
+                        : MediaQuery.of(context).size.width - 36,
                     child: TabBarView(
                       controller: _tabController,
                       children: [

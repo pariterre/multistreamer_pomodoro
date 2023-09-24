@@ -20,25 +20,25 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
+    final children = widget.items
+        .asMap()
+        .keys
+        .map((index) => _TabItem(
+              title: widget.items[index],
+              onTap: () {
+                widget.tabController.animateTo(index);
+                setState(() => _current = index);
+              },
+              isActive: index == _current,
+            ))
+        .toList();
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          children: widget.items
-              .asMap()
-              .keys
-              .map(
-                (index) => _TabItem(
-                  title: widget.items[index],
-                  onTap: () {
-                    widget.tabController.animateTo(index);
-                    setState(() => _current = index);
-                  },
-                  isActive: index == _current,
-                ),
-              )
-              .toList()),
+          children: children),
     );
   }
 }
