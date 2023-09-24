@@ -16,7 +16,7 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-  int _current = 0;
+  late int _current = widget.tabController.index;
 
   @override
   Widget build(BuildContext context) {

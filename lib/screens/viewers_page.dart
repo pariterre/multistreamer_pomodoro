@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multistreamer_pomodoro/config.dart';
 import 'package:multistreamer_pomodoro/main.dart';
 import 'package:multistreamer_pomodoro/models/chatter.dart';
 import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
@@ -13,11 +14,8 @@ class ViewersPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          // TODO font style
-          'AUDITEURS ET AUDITRICES',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
+        Text('AUDITEURS ET AUDITRICES',
+            style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 12),
         Expanded(child: _buildChattersListTile(context)),
       ],
@@ -30,8 +28,12 @@ class ViewersPage extends StatelessWidget {
       ..sort((a, b) => b.totalWatchingTime - a.totalWatchingTime);
 
     return isInitialized
-        ? (chatters.isEmpty
-            ? const Text('Aucun auditeur ou auditrice pour l\'instant')
+        ? (sortedChatters.isEmpty
+            ? (isEventStarted
+                ? const Text('Aucun auditeur ou auditrice pour l\'instant')
+                : const Text(
+                    'Lors de l\'événement, votre temps de participation sera enregistré ici!'
+                    'Revenez régulière sur cette page pour vous comparer aux autres participantes et participants ;-)'))
             : ListView.builder(
                 itemCount: sortedChatters.length,
                 itemBuilder: (context, index) => Padding(

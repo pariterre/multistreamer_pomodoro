@@ -78,8 +78,8 @@ class _Image extends StatelessWidget {
               opacity: opacity,
               child: Transform.rotate(
                   angle: angle * pi / 180,
-                  child:
-                      Image.asset('assets/$name.png', fit: BoxFit.contain)))),
+                  child: Image.asset('assets/images/$name.png',
+                      fit: BoxFit.contain)))),
     );
   }
 }

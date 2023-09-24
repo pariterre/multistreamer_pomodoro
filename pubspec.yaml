@@ -28,4 +28,13 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/
+    - assets/images/
+  fonts:
+    - family: BebasNeue
+      fonts:
+      - asset: assets/fonts/BebasNeue-Regular.otf
+      - asset: assets/fonts/BebasNeue-Bold.otf
+        weight: 700
+    - family: Nirmala
+      fonts:
+      - asset: assets/fonts/Nirmala-Regular.ttf

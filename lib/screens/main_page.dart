@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:multistreamer_pomodoro/config.dart';
 import 'package:multistreamer_pomodoro/models/chatter.dart';
 import 'package:multistreamer_pomodoro/models/streamer.dart';
 import 'package:multistreamer_pomodoro/models/twitch_interface.dart';
@@ -36,7 +37,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     _prepareListTwitchInterface(maxRetries: 10, maxWaitingTime: 2000);
 
     // The page should open on the last tab at the event
-    if (DateTime.now().compareTo(DateTime(2023, 10, 5, 14)) > 0) {
+    if (isEventStarted) {
       _tabController.animateTo(_tabMenu.length - 1);
     }
   }

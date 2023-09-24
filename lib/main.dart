@@ -52,13 +52,23 @@ class MyApp extends StatelessWidget {
         title: 'Le PomoLattePumkin-48h-Relais',
         theme: ThemeData(
           textTheme: const TextTheme(
-            titleLarge:
-                TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            titleLarge: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontFamily: 'BebasNeue',
+                fontSize: 28),
             titleMedium: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontFamily: 'BebasNeue',
+                fontSize: 20),
             titleSmall: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
-            bodyMedium: TextStyle(fontSize: 16, color: Colors.white),
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontFamily: 'BebasNeue',
+                fontSize: 18),
+            bodyMedium: TextStyle(
+                color: Colors.white, fontFamily: 'Nirmala', fontSize: 16),
           ),
           useMaterial3: true,
         ),
