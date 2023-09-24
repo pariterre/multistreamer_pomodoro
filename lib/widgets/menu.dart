@@ -20,23 +20,26 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: widget.items
-            .asMap()
-            .keys
-            .map(
-              (index) => _TabItem(
-                title: widget.items[index],
-                onTap: () {
-                  widget.tabController.animateTo(index);
-                  setState(() => _current = index);
-                },
-                isActive: index == _current,
-              ),
-            )
-            .toList());
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: widget.items
+              .asMap()
+              .keys
+              .map(
+                (index) => _TabItem(
+                  title: widget.items[index],
+                  onTap: () {
+                    widget.tabController.animateTo(index);
+                    setState(() => _current = index);
+                  },
+                  isActive: index == _current,
+                ),
+              )
+              .toList()),
+    );
   }
 }
 
@@ -60,13 +63,16 @@ class _TabItem extends StatelessWidget {
         child: Card(
           elevation: 5,
           child: Container(
-              width: 230,
+              width: 180,
+              height: 60,
               decoration: BoxDecoration(
                   color: isActive ? selectedColor : unselectedColor),
-              padding: const EdgeInsets.all(12),
               child: Center(
-                child:
-                    Text(title, style: Theme.of(context).textTheme.titleMedium),
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  textAlign: TextAlign.center,
+                ),
               )),
         ),
       ),

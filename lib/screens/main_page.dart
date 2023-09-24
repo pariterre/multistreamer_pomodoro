@@ -24,7 +24,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   bool _isInitialized = false;
-  late final _tabController = TabController(length: 2, vsync: this);
+  final _tabMenu = ['Introduction', 'Horaire', 'Auditeurs &\nAuditrices'];
+
+  late final _tabController =
+      TabController(length: _tabMenu.length, vsync: this);
 
   @override
   void initState() {
@@ -49,23 +52,20 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 120),
-              Menu(
-                  items: const ['Horaire', 'Auditeurs & Auditrices'],
-                  tabController: _tabController),
+              Menu(items: _tabMenu, tabController: _tabController),
               const SizedBox(height: 36),
               Expanded(
-                child: SizedBox(
-                  width: 500,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      const SchedulePage(),
-                      _isInitialized
-                          ? const ViewersPage()
-                          : const Center(
-                              child: CircularProgressIndicator(
-                                  color: Colors.white)),
-                    ],
+                child: Center(
+                  child: SizedBox(
+                    width: 500,
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        const SchedulePage(),
+                        const SchedulePage(),
+                        ViewersPage(isInitialized: _isInitialized),
+                      ],
+                    ),
                   ),
                 ),
               )

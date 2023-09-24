@@ -4,7 +4,9 @@ import 'package:multistreamer_pomodoro/models/chatter.dart';
 import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
 
 class ViewersPage extends StatelessWidget {
-  const ViewersPage({super.key});
+  const ViewersPage({super.key, required this.isInitialized});
+
+  final bool isInitialized;
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +29,17 @@ class ViewersPage extends StatelessWidget {
     final sortedChatters = [...chatters]
       ..sort((a, b) => b.totalWatchingTime - a.totalWatchingTime);
 
-    return chatters.isEmpty
-        ? const Text('Aucun auditeur ou auditrice pour l\'instant')
-        : ListView.builder(
-            itemCount: sortedChatters.length,
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
-              child: _ChatterTile(chatter: sortedChatters[index]),
-            ),
-          );
+    return isInitialized
+        ? (chatters.isEmpty
+            ? const Text('Aucun auditeur ou auditrice pour l\'instant')
+            : ListView.builder(
+                itemCount: sortedChatters.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.only(bottom: 4.0),
+                  child: _ChatterTile(chatter: sortedChatters[index]),
+                ),
+              ))
+        : const Center(child: CircularProgressIndicator(color: Colors.white));
   }
 }
 
