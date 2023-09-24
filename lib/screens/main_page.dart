@@ -1,12 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:multistreamer_pomodoro/models/chatter.dart';
-import 'package:multistreamer_pomodoro/models/streamer.dart';
 import 'package:multistreamer_pomodoro/models/streamer_info.dart';
-import 'package:multistreamer_pomodoro/models/twitch_interface.dart';
-import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
-import 'package:multistreamer_pomodoro/providers/streamers_provided.dart';
 import 'package:multistreamer_pomodoro/widgets/background.dart';
 import 'package:multistreamer_pomodoro/widgets/menu.dart';
 import 'package:multistreamer_pomodoro/widgets/schedule_page.dart';
@@ -16,7 +9,6 @@ class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.isClient});
 
   static const route = '/main-page';
-  final deltaTime = 30; // In seconds
   final bool isClient;
 
   @override
@@ -24,7 +16,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
-  bool _isInitialize = false;
   late final _tabController = TabController(length: 2, vsync: this);
 
   final streamersInformation = [
@@ -80,105 +71,10 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         length: const Duration(hours: 3, minutes: 30)),
   ];
 
-  void _addChatterTime(
-      {required Streamer streamer,
-      required List<String> currentChatters}) async {
-    final chatters = ChattersProvided.of(context, listen: false);
-    final followers = (await TwitchInterface
-        .instance.managers[streamer.streamerId]!.api
-        .fetchFollowers(includeStreamer: true))!;
-
-    for (final chatterName in currentChatters) {
-      // Check if it is a new chatter
-      if (!chatters.any((chatter) => chatter.name == chatterName)) {
-        chatters.add(Chatter(name: chatterName));
-        continue; // We must wait for firebase to respond
-      }
-      final currentChatter =
-          chatters.firstWhere((chatter) => chatter.name == chatterName);
-
-      // The chatter must be a follower of the streamer
-      if (!followers.contains(currentChatter.name)) continue;
-
-      // Check if it is the first time on a specific chanel
-      if (currentChatter.hasNotStreamer(streamer.name)) {
-        currentChatter.addStreamer(streamer.name);
-      }
-
-      // Add one time increment to the user
-
-      currentChatter.incrementTimeWatching(widget.deltaTime, of: streamer.name);
-
-      // Update the provider
-      chatters.add(currentChatter);
-    }
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _prepareListTwitchInterface(maxRetries: 10, maxWaitingTime: 2000);
-  }
-
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
-  }
-
-  Future<void> _prepareListTwitchInterface(
-      {int retries = 0,
-      required int maxWaitingTime,
-      required int maxRetries}) async {
-    // Wait for at least X seconds to load data. If none are received thed,
-    // we can assume it is a fresh loading
-    final streamers = StreamersProvided.of(context, listen: false);
-    final chatters = ChattersProvided.of(context, listen: false);
-    if (retries < maxRetries && (streamers.isEmpty || chatters.isEmpty)) {
-      await Future.delayed(
-          Duration(milliseconds: maxWaitingTime ~/ maxRetries));
-      _prepareListTwitchInterface(
-        retries: retries + 1,
-        maxRetries: maxRetries,
-        maxWaitingTime: maxWaitingTime,
-      );
-      return;
-    }
-    if (widget.isClient) {
-      _isInitialize = true;
-      setState(() {});
-      return;
-    }
-
-    for (final streamerId in TwitchInterface.instance.connectedStreamerIds) {
-      final streamerLogin =
-          (await TwitchInterface.instance.managers[streamerId]!.api.login(
-              TwitchInterface.instance.managers[streamerId]!.api.streamerId))!;
-
-      if (!streamers.any((e) => e.name == streamerLogin)) {
-        streamers.add(Streamer(streamerId: streamerId, name: streamerLogin));
-      }
-
-      Timer.periodic(Duration(seconds: widget.deltaTime), (timer) async {
-        final chatters = await TwitchInterface
-            .instance.managers[streamerId]!.api
-            .fetchChatters(blacklist: ['CommanderRoot', 'StreamElements']);
-        if (chatters == null) return;
-
-        final api = TwitchInterface.instance.managers[streamerId]?.api;
-        if (api == null) return;
-
-        // If the user is not live, do not add time to their viewers
-        if (!(await api.isUserLive(api.streamerId))!) return;
-
-        _addChatterTime(
-            streamer: streamers.firstWhere((e) => e.streamerId == streamerId),
-            currentChatters: chatters);
-      });
-    }
-    _isInitialize = true;
-    setState(() {});
   }
 
   @override
@@ -202,12 +98,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      !_isInitialize
-                          ? const Center(
-                              child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ))
-                          : const ViewersPage(),
+                      ViewersPage(isClient: widget.isClient),
                       SchedulePage(streamers: streamersInformation),
                     ],
                   ),
