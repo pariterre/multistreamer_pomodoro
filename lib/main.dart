@@ -2,13 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:multistreamer_pomodoro/config.dart';
-import 'package:multistreamer_pomodoro/firebase_options.dart';
-import 'package:multistreamer_pomodoro/models/twitch_interface.dart';
-import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
-import 'package:multistreamer_pomodoro/providers/streamers_provided.dart';
-import 'package:multistreamer_pomodoro/screens/connect_streamers_page.dart';
-import 'package:multistreamer_pomodoro/screens/main_page.dart';
+import 'package:pomo_latte_pumpkin/config.dart';
+import 'package:pomo_latte_pumpkin/firebase_options.dart';
+import 'package:pomo_latte_pumpkin/models/twitch_interface.dart';
+import 'package:pomo_latte_pumpkin/providers/chatters_provided.dart';
+import 'package:pomo_latte_pumpkin/providers/streamers_provided.dart';
+import 'package:pomo_latte_pumpkin/screens/connect_streamers_page.dart';
+import 'package:pomo_latte_pumpkin/screens/main_page.dart';
 import 'package:provider/provider.dart';
 import 'package:twitch_manager/twitch_app_info.dart';
 
@@ -33,13 +33,13 @@ void main() async {
     useMock: false,
   );
 
-  runApp(const MyApp(isClientPage: true));
+  runApp(const MyApp(isServer: false));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.isClientPage});
+  const MyApp({super.key, required this.isServer});
 
-  final bool isClientPage;
+  final bool isServer;
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +75,9 @@ class MyApp extends StatelessWidget {
         routes: {
           ConnectedStreamersPage.route: (context) =>
               const ConnectedStreamersPage(),
-          MainPage.route: (context) => MainPage(isClient: isClientPage),
+          MainPage.route: (context) => MainPage(isServer: isServer),
         },
-        initialRoute:
-            isClientPage ? MainPage.route : ConnectedStreamersPage.route,
+        initialRoute: isServer ? ConnectedStreamersPage.route : MainPage.route,
       ),
     );
   }

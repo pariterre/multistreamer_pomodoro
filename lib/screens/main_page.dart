@@ -1,23 +1,23 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:multistreamer_pomodoro/config.dart';
-import 'package:multistreamer_pomodoro/models/chatter.dart';
-import 'package:multistreamer_pomodoro/models/streamer.dart';
-import 'package:multistreamer_pomodoro/models/twitch_interface.dart';
-import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
-import 'package:multistreamer_pomodoro/providers/streamers_provided.dart';
-import 'package:multistreamer_pomodoro/screens/introduction_page.dart';
-import 'package:multistreamer_pomodoro/screens/schedule_page.dart';
-import 'package:multistreamer_pomodoro/screens/viewers_page.dart';
-import 'package:multistreamer_pomodoro/widgets/background.dart';
-import 'package:multistreamer_pomodoro/widgets/menu.dart';
+import 'package:pomo_latte_pumpkin/config.dart';
+import 'package:pomo_latte_pumpkin/models/chatter.dart';
+import 'package:pomo_latte_pumpkin/models/streamer.dart';
+import 'package:pomo_latte_pumpkin/models/twitch_interface.dart';
+import 'package:pomo_latte_pumpkin/providers/chatters_provided.dart';
+import 'package:pomo_latte_pumpkin/providers/streamers_provided.dart';
+import 'package:pomo_latte_pumpkin/screens/introduction_page.dart';
+import 'package:pomo_latte_pumpkin/screens/schedule_page.dart';
+import 'package:pomo_latte_pumpkin/screens/viewers_page.dart';
+import 'package:pomo_latte_pumpkin/widgets/background.dart';
+import 'package:pomo_latte_pumpkin/widgets/menu.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key, required this.isClient});
+  const MainPage({super.key, required this.isServer});
 
   static const route = '/main-page';
-  final bool isClient;
+  final bool isServer;
   final int deltaTime = 30;
 
   @override
@@ -102,7 +102,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       );
       return;
     }
-    if (widget.isClient) {
+    if (!widget.isServer) {
       setState(() {
         _isInitialized = true;
       });

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:multistreamer_pomodoro/config.dart';
-import 'package:multistreamer_pomodoro/main.dart';
-import 'package:multistreamer_pomodoro/models/chatter.dart';
-import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
+import 'package:pomo_latte_pumpkin/config.dart';
+import 'package:pomo_latte_pumpkin/main.dart';
+import 'package:pomo_latte_pumpkin/models/chatter.dart';
+import 'package:pomo_latte_pumpkin/providers/chatters_provided.dart';
 
 class ViewersPage extends StatelessWidget {
   const ViewersPage({super.key, required this.isInitialized});

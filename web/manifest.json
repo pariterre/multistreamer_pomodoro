@@ -1,11 +1,11 @@
 {
-    "name": "multistreamer_pomodoro",
-    "short_name": "multistreamer_pomodoro",
+    "name": "PomoLattePumpkin-48h-Relais",
+    "short_name": "Le PomoLattePumpkin-48h-Relais",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Le site web du PomoLattePumpkin-48h-Relais",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

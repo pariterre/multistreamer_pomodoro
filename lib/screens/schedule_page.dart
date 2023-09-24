@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:multistreamer_pomodoro/config.dart';
-import 'package:multistreamer_pomodoro/main.dart';
-import 'package:multistreamer_pomodoro/models/schedule_info.dart';
+import 'package:pomo_latte_pumpkin/config.dart';
+import 'package:pomo_latte_pumpkin/main.dart';
+import 'package:pomo_latte_pumpkin/models/schedule_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SchedulePage extends StatefulWidget {

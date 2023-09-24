@@ -1,5 +1,5 @@
 import 'package:enhanced_containers/enhanced_containers.dart';
-import 'package:multistreamer_pomodoro/models/streamer.dart';
+import 'package:pomo_latte_pumpkin/models/streamer.dart';
 import 'package:provider/provider.dart';
 
 class StreamersProvided extends FirebaseListProvided<Streamer> {

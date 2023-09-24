@@ -1,4 +1,4 @@
-import 'package:multistreamer_pomodoro/models/schedule_info.dart';
+import 'package:pomo_latte_pumpkin/models/schedule_info.dart';
 import 'package:twitch_manager/twitch_manager.dart';
 
 const twitchAppName = 'MultiStreamer Pomodoro Counter';

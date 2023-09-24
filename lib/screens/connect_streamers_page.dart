@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:multistreamer_pomodoro/models/twitch_interface.dart';
-import 'package:multistreamer_pomodoro/screens/main_page.dart';
+import 'package:pomo_latte_pumpkin/models/twitch_interface.dart';
+import 'package:pomo_latte_pumpkin/screens/main_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:twitch_manager/twitch_manager.dart';
 

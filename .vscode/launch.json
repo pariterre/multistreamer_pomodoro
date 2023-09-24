@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "multistreamer_pomodoro",
+            "name": "pomo_latte_pumpkin",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "multistreamer_pomodoro (profile mode)",
+            "name": "pomo_latte_pumpkin (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "multistreamer_pomodoro (release mode)",
+            "name": "pomo_latte_pumpkin (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
