@@ -6,10 +6,11 @@ import 'package:multistreamer_pomodoro/models/streamer.dart';
 import 'package:multistreamer_pomodoro/models/twitch_interface.dart';
 import 'package:multistreamer_pomodoro/providers/chatters_provided.dart';
 import 'package:multistreamer_pomodoro/providers/streamers_provided.dart';
+import 'package:multistreamer_pomodoro/screens/introduction_page.dart';
+import 'package:multistreamer_pomodoro/screens/schedule_page.dart';
+import 'package:multistreamer_pomodoro/screens/viewers_page.dart';
 import 'package:multistreamer_pomodoro/widgets/background.dart';
 import 'package:multistreamer_pomodoro/widgets/menu.dart';
-import 'package:multistreamer_pomodoro/widgets/schedule_page.dart';
-import 'package:multistreamer_pomodoro/widgets/viewers_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.isClient});
@@ -33,6 +34,11 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _prepareListTwitchInterface(maxRetries: 10, maxWaitingTime: 2000);
+
+    // The page should open on the last tab at the event
+    if (DateTime.now().compareTo(DateTime(2023, 10, 5, 14)) > 0) {
+      _tabController.animateTo(_tabMenu.length - 1);
+    }
   }
 
   @override
@@ -61,7 +67,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     child: TabBarView(
                       controller: _tabController,
                       children: [
-                        const SchedulePage(),
+                        const IntroductionPage(),
                         const SchedulePage(),
                         ViewersPage(isInitialized: _isInitialized),
                       ],

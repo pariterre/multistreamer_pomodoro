@@ -65,9 +65,7 @@ class MyApp extends StatelessWidget {
         routes: {
           ConnectedStreamersPage.route: (context) =>
               const ConnectedStreamersPage(),
-          MainPage.route: (context) => MainPage(
-                isClient: isClientPage,
-              ),
+          MainPage.route: (context) => MainPage(isClient: isClientPage),
         },
         initialRoute:
             isClientPage ? MainPage.route : ConnectedStreamersPage.route,

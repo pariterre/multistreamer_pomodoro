@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 final _schedule = [
   ScheduleInfo(
-      title: 'On attend!',
+      title: 'On est fébrile!',
       url: 'https://www.facebook.com/events/1557104731490847',
       starting: DateTime(2023, 09, 23),
       length: Duration(
@@ -196,7 +196,7 @@ class _StreamerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateFormat dateFormat = DateFormat('d MMM - HH:mm');
+    DateFormat dateFormat = DateFormat('d MMM HH:mm');
 
     final now = DateTime.now();
     final isActive =
@@ -222,19 +222,19 @@ class _StreamerTile extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Début de l\'animation'),
-                  Text(dateFormat.format(
-                      info.starting.add(Duration(hours: fromFrance ? 6 : 0)))),
+                  const Text('Début / Fin'),
+                  Row(
+                    children: [
+                      Text(dateFormat.format(info.starting
+                          .add(Duration(hours: fromFrance ? 6 : 0)))),
+                      const Text(' / '),
+                      Text(dateFormat.format(info.ending
+                          .add(Duration(hours: fromFrance ? 6 : 0)))),
+                    ],
+                  ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Fin de l\'animation'),
-                  Text(dateFormat.format(
-                      info.ending.add(Duration(hours: fromFrance ? 6 : 0)))),
-                ],
-              ),
+              const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -246,7 +246,8 @@ class _StreamerTile extends StatelessWidget {
                       child: Text(
                         info.url,
                         style: const TextStyle(
-                            decoration: TextDecoration.underline),
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.white),
                       )),
                 ],
               ),
