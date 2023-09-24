@@ -7,7 +7,7 @@ class StreamersProvided extends FirebaseListProvided<Streamer> {
     initializeFetchingData();
   }
 
-  static StreamersProvided of(context, {listen = false}) =>
+  static StreamersProvided of(context, {listen = true}) =>
       Provider.of<StreamersProvided>(context, listen: listen);
 
   @override

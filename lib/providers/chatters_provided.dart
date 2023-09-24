@@ -7,7 +7,7 @@ class ChattersProvided extends FirebaseListProvided<Chatter> {
     initializeFetchingData();
   }
 
-  static ChattersProvided of(context, {listen = false}) =>
+  static ChattersProvided of(context, {listen = true}) =>
       Provider.of<ChattersProvided>(context, listen: listen);
 
   @override
