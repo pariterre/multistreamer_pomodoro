@@ -33,7 +33,7 @@ class ViewersPage extends StatelessWidget {
                 ? const Text('Aucun auditeur ou auditrice pour l\'instant')
                 : const Text(
                     'Lors de l\'événement, votre temps de participation sera enregistré ici!'
-                    'Revenez régulière sur cette page pour vous comparer aux autres participantes et participants ;-)'))
+                    'Revenez régulièrement sur cette page pour vous comparer aux autres participantes et participants ;-)'))
             : ListView.builder(
                 itemCount: sortedChatters.length,
                 itemBuilder: (context, index) => Padding(

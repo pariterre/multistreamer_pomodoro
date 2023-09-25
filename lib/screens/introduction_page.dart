@@ -21,15 +21,15 @@ class IntroductionPage extends StatelessWidget {
                 Text('Le PomoLattePumpkin-48h-Relais! Je t\'explique :'),
                 SizedBox(height: 12),
                 Text(
-                    'Tu te prépares un (ou plusieurs) spicy lattés pumpkings pour célébrer octobre, '
-                    'tu ouvres un fureteur web et tu t\'installes pour travailles avec nous! '
+                    'Tu te prépares un (ou plusieurs) spicy lattes pumpkins pour célébrer octobre, '
+                    'tu ouvres un fureteur web et tu t\'installes pour travailler avec nous! '
                     'Nous serons des vôtres pour travailler sur 48h les 5 au 7 octobre prochain de 14h à 14h!'),
                 SizedBox(height: 12),
                 Text(
                     'Viens découvrir des animateurs et animatrices ainsi que des communautés de '
                     'travail merveilleuses, en plus de découvrir différentes approches de '
                     'la méthode pomodoro. Que ce soit des séances courtes (25 minutes '
-                    'travail/5 minutes de pause) ou longue (50/10), strictes ou plus...laxistes(!), '
+                    'travail/5 minutes de pause) ou longues (50/10), strictes ou plus...laxistes(!), '
                     'il y en aura pour toutes les personnalités, dont la tienne.'),
                 SizedBox(height: 12),
                 Text(
