@@ -16,7 +16,14 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  final _scrollController = ScrollController();
   late int _current = widget.tabController.index;
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -32,25 +39,73 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-    final children = widget.items
-        .asMap()
-        .keys
-        .map((index) => _TabItem(
-              title: widget.items[index],
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        SingleChildScrollView(
+          controller: _scrollController,
+          scrollDirection: Axis.horizontal,
+          child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: widget.items
+                  .asMap()
+                  .keys
+                  .map((index) => _TabItem(
+                        title: widget.items[index],
+                        onTap: () {
+                          widget.tabController.animateTo(index);
+                          setState(() => _current = index);
+                        },
+                        isActive: index == _current,
+                      ))
+                  .toList()),
+        ),
+        if (MediaQuery.of(context).size.width < 200 * widget.items.length)
+          Positioned(
+            left: 4.0,
+            child: InkWell(
               onTap: () {
-                widget.tabController.animateTo(index);
-                setState(() => _current = index);
+                _scrollController.animateTo(_scrollController.offset - 80,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease);
               },
-              isActive: index == _current,
-            ))
-        .toList();
-
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: children),
+              borderRadius: BorderRadius.circular(25),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(25)),
+                child: const Icon(
+                  Icons.keyboard_arrow_left_outlined,
+                  color: Colors.black,
+                  size: 40,
+                ),
+              ),
+            ),
+          ),
+        if (MediaQuery.of(context).size.width < 200 * widget.items.length)
+          Positioned(
+            right: 4.0,
+            child: InkWell(
+              onTap: () {
+                _scrollController.animateTo(_scrollController.offset + 80,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease);
+              },
+              borderRadius: BorderRadius.circular(25),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(25)),
+                child: const Icon(
+                  Icons.keyboard_arrow_right_outlined,
+                  color: Colors.black,
+                  size: 40,
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }
