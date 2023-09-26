@@ -18,7 +18,7 @@ bool get isEventStarted =>
 final eventSchedule = [
   ScheduleInfo(
       title: 'On est fébrile!',
-      url: 'https://www.facebook.com/events/1557104731490847',
+      url: 'facebook.com/events/1557104731490847',
       starting: DateTime(2023, 09, 23),
       length: Duration(
           milliseconds: DateTime(2023, 10, 5, 13, 30).millisecondsSinceEpoch -

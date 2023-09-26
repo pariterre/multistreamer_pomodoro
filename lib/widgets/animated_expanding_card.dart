@@ -57,6 +57,7 @@ class _AnimatedExpandingCardState extends State<AnimatedExpandingCard>
         mainAxisSize: MainAxisSize.min,
         children: [
           InkWell(
+            borderRadius: BorderRadius.circular(12),
             onTap: () {
               _isExpanded = !_isExpanded;
               _isExpanded

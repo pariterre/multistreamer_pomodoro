@@ -43,7 +43,7 @@ class _StreamerCard extends StatelessWidget {
                 launchUrl(Uri(scheme: 'https', path: streamerInfo.twitchUrl));
               },
               child: Text(
-                streamerInfo.twitchUrl,
+                'https://${streamerInfo.twitchUrl}',
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.underline,
