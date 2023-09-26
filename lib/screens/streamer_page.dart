@@ -97,7 +97,7 @@ class _StreamerCardState extends State<_StreamerCard> {
                         _VideoWithTitle(
                           title: 'Mon approche du cotravail en pomodoro',
                           videoId: widget.streamerInfo.philosophyYoutubeId!,
-                          delayBeforeLoading: 1000,
+                          delayBeforeLoading: 3000,
                         ),
                     ],
                   ),
