@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pomo_latte_pumpkin/config.dart';
 import 'package:pomo_latte_pumpkin/main.dart';
 import 'package:pomo_latte_pumpkin/models/streamer_info.dart';
+import 'package:pomo_latte_pumpkin/widgets/animated_expanding_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -21,60 +22,49 @@ class StreamerPage extends StatelessWidget {
   }
 }
 
-class _StreamerCard extends StatefulWidget {
+class _StreamerCard extends StatelessWidget {
   const _StreamerCard({required this.streamerInfo});
 
   final StreamerInfo streamerInfo;
   @override
-  State<_StreamerCard> createState() => _StreamerCardState();
-}
-
-class _StreamerCardState extends State<_StreamerCard> {
-  bool _isExpanded = false;
-
-  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => setState(() => _isExpanded = !_isExpanded),
-      child: Card(
-        elevation: 5,
-        child: Container(
-          decoration: BoxDecoration(
-              color: _isExpanded ? selectedColor : unselectedColor,
-              borderRadius: BorderRadius.circular(8)),
-          width: 400,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.streamerInfo.name,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                InkWell(
-                    onTap: () {
-                      launchUrl(Uri(
-                          scheme: 'https',
-                          path: widget.streamerInfo.twitchUrl));
-                    },
-                    child: Text(
-                      widget.streamerInfo.twitchUrl,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                          decorationColor: Colors.white),
-                    )),
-                if (!_isExpanded) const Text('Voir plus...'),
-                if (_isExpanded)
+    return AnimatedExpandingCard(
+      expandedColor: selectedColor,
+      closedColor: unselectedColor,
+      header: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(
+            streamerInfo.name,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          InkWell(
+              onTap: () {
+                launchUrl(Uri(scheme: 'https', path: streamerInfo.twitchUrl));
+              },
+              child: Text(
+                streamerInfo.twitchUrl,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.white),
+              )),
+        ]),
+      ),
+      builder: (context, isExpanded) => isExpanded
+          ? Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 4),
-                      Text(widget.streamerInfo.description),
+                      Text(streamerInfo.description),
                       const SizedBox(height: 12),
-                      if (widget.streamerInfo.presentationYoutubeId == null &&
-                          widget.streamerInfo.philosophyYoutubeId == null)
+                      if (streamerInfo.presentationYoutubeId == null &&
+                          streamerInfo.philosophyYoutubeId == null)
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -85,27 +75,25 @@ class _StreamerCardState extends State<_StreamerCard> {
                             const Text('À venir'),
                           ],
                         ),
-                      if (widget.streamerInfo.presentationYoutubeId != null)
+                      if (streamerInfo.presentationYoutubeId != null)
                         _VideoWithTitle(
                             title: 'Qui suis-je?',
-                            videoId:
-                                widget.streamerInfo.presentationYoutubeId!),
-                      if (widget.streamerInfo.presentationYoutubeId != null &&
-                          widget.streamerInfo.philosophyYoutubeId != null)
+                            videoId: streamerInfo.presentationYoutubeId!),
+                      if (streamerInfo.presentationYoutubeId != null &&
+                          streamerInfo.philosophyYoutubeId != null)
                         const SizedBox(height: 24),
-                      if (widget.streamerInfo.philosophyYoutubeId != null)
+                      if (streamerInfo.philosophyYoutubeId != null)
                         _VideoWithTitle(
                           title: 'Mon approche du cotravail en pomodoro',
-                          videoId: widget.streamerInfo.philosophyYoutubeId!,
+                          videoId: streamerInfo.philosophyYoutubeId!,
                           delayBeforeLoading: 3000,
                         ),
                     ],
                   ),
-              ],
-            ),
-          ),
-        ),
-      ),
+                ],
+              ),
+            )
+          : Container(),
     );
   }
 }
