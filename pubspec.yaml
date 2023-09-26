@@ -19,6 +19,7 @@ dependencies:
     path: ./plugins/enhanced_containers
   provider: ^6.0.5
   firebase_core: ^2.16.0
+  youtube_player_iframe: ^4.0.4
 
 dev_dependencies:
   flutter_test:

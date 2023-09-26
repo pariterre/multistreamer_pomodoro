@@ -1,4 +1,5 @@
 import 'package:pomo_latte_pumpkin/models/schedule_info.dart';
+import 'package:pomo_latte_pumpkin/models/streamer_info.dart';
 import 'package:twitch_manager/twitch_manager.dart';
 
 const twitchAppName = 'MultiStreamer Pomodoro Counter';
@@ -127,4 +128,99 @@ final eventSchedule = [
       url: 'twitch.tv/pariterre',
       starting: DateTime(2023, 10, 7, 14, 0),
       length: const Duration(minutes: 10)),
+];
+
+final streamersInfo = [
+  StreamerInfo(
+    'AlchimisteDesMots',
+    description:
+        'A la tête de La Petite Boutique des Auteurs, j\'aime aussi faire '
+        'des expériences avec les mots, un peu comme une alchimiste, quoi... 🤭 '
+        'Bienvenue sur mes lives en carton qui buguent et où les 🐈, le 🐕, '
+        'les 🙎‍♂️ (et pas que) sont à rôder pas loin (du stream littéraire '
+        'pas prise de tête, en somme)',
+    twitchUrl: 'twitch.tv/AlchimisteDesMots',
+  ),
+  StreamerInfo(
+    'destinova_glo',
+    description: '💻Coworking | 📚 WWM : Travaillons ensemble intensément mais '
+        'surtout efficacement, soyons productifs ! || 🎮 Gaming : '
+        'Installes-toi confortablement pour te détendre et rire ! || 🌸 '
+        'Fondatrice de Authentic\'s Vibes 🌸',
+    twitchUrl: 'twitch.tv/destinova_glo',
+  ),
+  StreamerInfo(
+    'elidelivre',
+    description:
+        'Chroniqueuse littéraire, 21 ans📚Lectures en tous genres 📍Suisse.',
+    twitchUrl: 'twitch.tv/elidelivre',
+  ),
+  StreamerInfo(
+    'Fenyxya',
+    description: 'Coucou!✨Moi, c\'est Fenyxya, mais tu peux aussi m\'appeler '
+        'Fenyx ou encore Feny si tu préfères! Je te souhaite la bienvenue '
+        'dans mon univers très pugos... La lecture, l\'art et les sims '
+        'seront principalement au rendez-vous!🔮',
+    twitchUrl: 'twitch.tv/Fenyxya',
+    presentationYoutubeId: 'yclvzNBriGc',
+    philosophyYoutubeId: 'cG4uRvS48OM',
+  ),
+  StreamerInfo(
+    'Helene_Ducrocq',
+    description:
+        'Bienvenue dans mon studio de création ! Découvre mon quotidien de '
+        'réalisatrice de films d\'animation, d\'illustratrice, d\'autrice '
+        'de livres et d\'artiste. Ici, on coworke pou parler créativité, '
+        'coups de coeur et je réalise en direct mes prochains projets '
+        '(4 films en animation, 1 livre, 1 expo).',
+    twitchUrl: 'twitch.tv/Helene_Ducrocq',
+    presentationYoutubeId: 'wmozo8-xjTE',
+    philosophyYoutubeId: 'zxv7PvuKWfM',
+  ),
+  StreamerInfo(
+    'Le_Sketch',
+    description:
+        'Je parle de marketing en essayant de ne pas vous endormir, je '
+        'découvre des jeux avec vous et je raconte des blagues nulles trop '
+        'souvent. Je suis un consultant SEO qui tente de rendre le marketing '
+        'Web plus sympathique et empathique.',
+    twitchUrl: 'twitch.tv/Le_Sketch',
+  ),
+  StreamerInfo(
+    'LizEMyers',
+    description:
+        'French author living in the US / Auteur française - Fantasy - '
+        'Urban Fantasy expatriée aux USA / Saga Mathilda Shade',
+    twitchUrl: 'twitch.tv/LizEMyers',
+    presentationYoutubeId: 'SkYBOe7RbFA',
+  ),
+  StreamerInfo(
+    'MemepAuteure',
+    description:
+        'Salut ! Moi c\'est MemepAuteure ! J\'ai 28 ans et je suis auteure '
+        'de fantasy. Sur ma chaîne, tu découvriras des sessions de '
+        'co-working et parfois des jeux vidéos.',
+    twitchUrl: 'twitch.tv/MemepAuteure',
+    presentationYoutubeId: 'MwWJb_j90FY',
+  ),
+  StreamerInfo(
+    'Pariterre',
+    description:
+        'Étudiant en musique à une certaine époque, étudiant en kinésiologie '
+        'à une autre...Alors pourquoi pas compléter un doctorat en Science '
+        'de l\'Activité Physique chez les musiciens?',
+    twitchUrl: 'twitch.tv/Pariterre',
+  ),
+  StreamerInfo(
+    'WayceUpenFoya',
+    description: 'J\'ai lancé cette chaîne pour partager ma passion pour '
+        'l\'écriture, la lecture et toutes les créations artistiques. '
+        'Même si vous me verrez aussi jouer à des jeux vidéos et '
+        'discuter autour de divers sujets, mon but est de partager '
+        'avec vous ces univers qui me bercent depuis maintenant '
+        'des années.',
+    twitchUrl: 'twitch.tv/WayceUpenFoya',
+    presentationYoutubeId: 'ELk77ehbDsE',
+    philosophyYoutubeId: 'Tof29JZPy7E',
+  ),
 ];

@@ -9,6 +9,7 @@ import 'package:pomo_latte_pumpkin/providers/chatters_provided.dart';
 import 'package:pomo_latte_pumpkin/providers/streamers_provided.dart';
 import 'package:pomo_latte_pumpkin/screens/introduction_page.dart';
 import 'package:pomo_latte_pumpkin/screens/schedule_page.dart';
+import 'package:pomo_latte_pumpkin/screens/streamer_page.dart';
 import 'package:pomo_latte_pumpkin/screens/viewers_page.dart';
 import 'package:pomo_latte_pumpkin/widgets/background.dart';
 import 'package:pomo_latte_pumpkin/widgets/menu.dart';
@@ -26,7 +27,12 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   bool _isInitialized = false;
-  final _tabMenu = ['Introduction', 'Horaire', 'Auditeurs &\nAuditrices'];
+  final _tabMenu = [
+    'Introduction',
+    'Animateurs &\nAnimatrices',
+    'Horaire',
+    'Auditeurs &\nAuditrices',
+  ];
 
   late final _tabController =
       TabController(length: _tabMenu.length, vsync: this);
@@ -71,6 +77,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                       controller: _tabController,
                       children: [
                         const IntroductionPage(),
+                        const StreamerPage(),
                         const SchedulePage(),
                         ViewersPage(isInitialized: _isInitialized),
                       ],

@@ -19,6 +19,18 @@ class _MenuState extends State<Menu> {
   late int _current = widget.tabController.index;
 
   @override
+  void initState() {
+    super.initState();
+    widget.tabController.addListener(() {
+      if (widget.tabController.index != _current) {
+        setState(() {
+          _current = widget.tabController.index;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final children = widget.items
         .asMap()
