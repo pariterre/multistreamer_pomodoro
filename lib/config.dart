@@ -140,6 +140,8 @@ final streamersInfo = [
         'les 🙎‍♂️ (et pas que) sont à rôder pas loin (du stream littéraire '
         'pas prise de tête, en somme)',
     twitchUrl: 'twitch.tv/AlchimisteDesMots',
+    presentationYoutubeId: '7kCX3617hkU',
+    philosophyYoutubeId: 'DUJZD5FiLAc',
   ),
   StreamerInfo(
     'destinova_glo',
