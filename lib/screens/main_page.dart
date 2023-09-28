@@ -61,32 +61,48 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         alignment: Alignment.topCenter,
         children: [
           const Background(),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 120),
-              Menu(items: _tabMenu, tabController: _tabController),
-              const SizedBox(height: 36),
-              Expanded(
-                child: Center(
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width > 536
-                        ? 500
-                        : MediaQuery.of(context).size.width - 36,
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: [
-                        const IntroductionPage(),
-                        const StreamerPage(),
-                        const SchedulePage(),
-                        ViewersPage(isInitialized: _isInitialized),
-                      ],
+          if (widget.isServer)
+            Padding(
+              padding: const EdgeInsets.only(top: 156.0),
+              child: SizedBox(
+                  width: MediaQuery.of(context).size.width > 536
+                      ? 500
+                      : MediaQuery.of(context).size.width - 36,
+                  child: ViewersPage(
+                    isInitialized: _isInitialized,
+                    isServer: widget.isServer,
+                  )),
+            ),
+          if (!widget.isServer)
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 120),
+                Menu(items: _tabMenu, tabController: _tabController),
+                const SizedBox(height: 36),
+                Expanded(
+                  child: Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width > 536
+                          ? 500
+                          : MediaQuery.of(context).size.width - 36,
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          const IntroductionPage(),
+                          const StreamerPage(),
+                          const SchedulePage(),
+                          ViewersPage(
+                            isInitialized: _isInitialized,
+                            isServer: widget.isServer,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
+                )
+              ],
+            ),
         ],
       ),
     );

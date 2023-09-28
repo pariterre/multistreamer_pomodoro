@@ -12,9 +12,6 @@ import 'package:pomo_latte_pumpkin/screens/main_page.dart';
 import 'package:provider/provider.dart';
 import 'package:twitch_manager/twitch_app_info.dart';
 
-const selectedColor = Color.fromARGB(255, 87, 48, 3);
-const unselectedColor = Color.fromARGB(255, 238, 156, 63);
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

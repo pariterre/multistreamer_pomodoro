@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:pomo_latte_pumpkin/models/schedule_info.dart';
 import 'package:pomo_latte_pumpkin/models/streamer_info.dart';
 import 'package:twitch_manager/twitch_manager.dart';
@@ -11,6 +13,10 @@ const twitchScope = [
   TwitchScope.chatters,
   TwitchScope.readFollowers,
 ];
+
+const backgroundColor = Color(0xFFFF8800);
+const selectedColor = Color.fromARGB(255, 87, 48, 3);
+const unselectedColor = Color.fromARGB(255, 238, 156, 63);
 
 bool get isEventStarted =>
     DateTime.now().compareTo(DateTime(2023, 10, 5, 14)) > 0;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomo_latte_pumpkin/main.dart';
+import 'package:pomo_latte_pumpkin/config.dart';
 
 class Menu extends StatefulWidget {
   const Menu({

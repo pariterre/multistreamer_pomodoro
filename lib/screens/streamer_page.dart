@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pomo_latte_pumpkin/config.dart';
-import 'package:pomo_latte_pumpkin/main.dart';
 import 'package:pomo_latte_pumpkin/models/streamer_info.dart';
 import 'package:pomo_latte_pumpkin/widgets/animated_expanding_card.dart';
 import 'package:url_launcher/url_launcher.dart';

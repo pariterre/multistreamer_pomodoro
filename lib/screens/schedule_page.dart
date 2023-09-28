@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pomo_latte_pumpkin/config.dart';
-import 'package:pomo_latte_pumpkin/main.dart';
 import 'package:pomo_latte_pumpkin/models/schedule_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
