@@ -130,6 +130,8 @@ final eventSchedule = [
       length: const Duration(minutes: 10)),
 ];
 
+String eventYoutubeId = '91sBKUfCGpg';
+
 final streamersInfo = [
   StreamerInfo(
     'AlchimisteDesMots',
@@ -212,6 +214,8 @@ final streamersInfo = [
         'à une autre...Alors pourquoi pas compléter un doctorat en Science '
         'de l\'Activité Physique chez les musiciens?',
     twitchUrl: 'twitch.tv/Pariterre',
+    presentationYoutubeId: 'TJHV5L9P12k',
+    philosophyYoutubeId: 'iwt_sJ5KFWM',
   ),
   StreamerInfo(
     'WayceUpenFoya',
