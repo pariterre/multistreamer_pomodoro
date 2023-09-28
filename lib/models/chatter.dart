@@ -4,6 +4,7 @@ class Chatter extends ItemSerializable {
   final String name;
 
   // _duration and _fromStreamers is expected to always be in sync
+  bool isBanned;
   final List<int> _duration;
   final List<String> _fromStreamers;
 
@@ -33,11 +34,13 @@ class Chatter extends ItemSerializable {
   bool hasNotStreamer(String streamerName) => !hasStreamer(streamerName);
 
   Chatter({required this.name})
-      : _duration = [],
+      : isBanned = false,
+        _duration = [],
         _fromStreamers = [];
 
   Chatter.fromSerialized(map)
       : name = map['name'],
+        isBanned = map['isBanned'] ?? false,
         _duration =
             (map['duration'] as List?)?.map<int>((e) => e).toList() ?? [],
         _fromStreamers =
@@ -50,6 +53,7 @@ class Chatter extends ItemSerializable {
     return {
       'id': id,
       'name': name,
+      'isBanned': isBanned,
       'duration': _duration,
       'fromStreamers': _fromStreamers,
     };

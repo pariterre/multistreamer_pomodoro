@@ -42,24 +42,28 @@ class ViewersPage extends StatelessWidget {
                     itemCount: sortedChatters.length,
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.only(bottom: 4.0),
-                      child: _ChatterTile(chatter: sortedChatters[index]),
+                      child: _ChatterTile(
+                        chatter: sortedChatters[index],
+                        isServer: isServer,
+                      ),
                     ),
                   ));
   }
 }
 
 class _ChatterTile extends StatelessWidget {
-  const _ChatterTile({required this.chatter});
+  const _ChatterTile({required this.chatter, required this.isServer});
 
   final Chatter chatter;
+  final bool isServer;
 
   @override
   Widget build(BuildContext context) {
-    return chatter.isEmpty
+    return chatter.isEmpty || (chatter.isBanned && !isServer)
         ? Container()
         : AnimatedExpandingCard(
-            expandedColor: selectedColor,
-            closedColor: unselectedColor,
+            expandedColor: chatter.isBanned ? Colors.white : selectedColor,
+            closedColor: chatter.isBanned ? Colors.white : unselectedColor,
             header: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
@@ -72,6 +76,25 @@ class _ChatterTile extends StatelessWidget {
                   ),
                   Text(
                       'Participation : ${chatter.totalWatchingTime ~/ 60} minutes'),
+                  if (isServer)
+                    InkWell(
+                      onTap: () {
+                        final chatters =
+                            ChattersProvided.of(context, listen: false);
+                        chatter.isBanned = !chatter.isBanned;
+                        chatters.add(chatter);
+                      },
+                      borderRadius: BorderRadius.circular(25),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        height: 40,
+                        width: 40,
+                        child: Icon(
+                            chatter.isBanned ? Icons.person_off : Icons.person),
+                      ),
+                    )
                 ],
               ),
             ),

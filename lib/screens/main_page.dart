@@ -162,8 +162,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     if (api == null) return;
     if (!(await api.isUserLive(api.streamerId))!) return;
 
-    final currentChatters =
-        await api.fetchChatters(blacklist: ['CommanderRoot', 'StreamElements']);
+    final currentChatters = await api.fetchChatters();
     if (currentChatters == null) return;
 
     // Get the followers of the current streamer
