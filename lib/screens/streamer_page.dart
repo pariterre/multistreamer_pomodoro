@@ -61,6 +61,26 @@ class _StreamerCard extends StatelessWidget {
                     children: [
                       const SizedBox(height: 4),
                       Text(streamerInfo.description),
+                      if (streamerInfo.personalWebSite != null)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 4),
+                            InkWell(
+                                onTap: () {
+                                  launchUrl(Uri(
+                                      scheme: 'https',
+                                      path: streamerInfo.personalWebSite));
+                                },
+                                child: Text(
+                                  'https://${streamerInfo.personalWebSite}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: Colors.white),
+                                )),
+                          ],
+                        ),
                       const SizedBox(height: 12),
                       if (streamerInfo.presentationYoutubeId == null &&
                           streamerInfo.philosophyYoutubeId == null)

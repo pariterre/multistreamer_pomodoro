@@ -184,6 +184,7 @@ final streamersInfo = [
         'coups de coeur et je réalise en direct mes prochains projets '
         '(4 films en animation, 1 livre, 1 expo).',
     twitchUrl: 'twitch.tv/Helene_Ducrocq',
+    personalWebSite: 'www.lesmalaimes.fr',
     presentationYoutubeId: 'wmozo8-xjTE',
     philosophyYoutubeId: 'zxv7PvuKWfM',
   ),
