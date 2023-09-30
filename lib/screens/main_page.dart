@@ -58,6 +58,10 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final columnWidth = MediaQuery.of(context).size.width > 536
+        ? 500.0
+        : MediaQuery.of(context).size.width - 36;
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.topCenter,
@@ -67,9 +71,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
             Padding(
               padding: const EdgeInsets.only(top: 156.0),
               child: SizedBox(
-                  width: MediaQuery.of(context).size.width > 536
-                      ? 500
-                      : MediaQuery.of(context).size.width - 36,
+                  width: columnWidth,
                   child: ViewersPage(
                     isInitialized: _isInitialized,
                     isServer: widget.isServer,
@@ -85,9 +87,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                 Expanded(
                   child: Center(
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width > 536
-                          ? 500
-                          : MediaQuery.of(context).size.width - 36,
+                      width: columnWidth,
                       child: TabBarView(
                         controller: _tabController,
                         children: [

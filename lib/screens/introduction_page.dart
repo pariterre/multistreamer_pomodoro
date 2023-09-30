@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomo_latte_pumpkin/config.dart';
+import 'package:pomo_latte_pumpkin/widgets/youtube_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -27,7 +28,10 @@ class IntroductionPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                YoutubePlayer(controller: youtubeController),
+                YoutubeBox(
+                  controller: youtubeController,
+                  widthRatio: 0.8,
+                ),
                 const SizedBox(height: 12),
                 const Text(
                     'Bienvenue au PomoLattePumpkin-48h-Relais!! Yeah!! Heu... le quoi?'),

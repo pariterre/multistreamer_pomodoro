@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pomo_latte_pumpkin/config.dart';
 import 'package:pomo_latte_pumpkin/models/streamer_info.dart';
 import 'package:pomo_latte_pumpkin/widgets/animated_expanding_card.dart';
+import 'package:pomo_latte_pumpkin/widgets/youtube_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -164,7 +165,8 @@ class _VideoWithTitle extends StatelessWidget {
             const Center(
               child: CircularProgressIndicator(color: Colors.white),
             ),
-          if (snapshot.hasData) YoutubePlayer(controller: controller),
+          if (snapshot.hasData)
+            YoutubeBox(controller: controller, widthRatio: 0.8),
         ],
       ),
     );
