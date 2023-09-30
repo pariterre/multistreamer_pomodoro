@@ -58,9 +58,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final columnWidth = MediaQuery.of(context).size.width > 536
-        ? 500.0
-        : MediaQuery.of(context).size.width - 36;
+    const double columnWidth = 500;
 
     return Scaffold(
       body: Stack(
@@ -70,12 +68,11 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
           if (widget.isServer)
             Padding(
               padding: const EdgeInsets.only(top: 156.0),
-              child: SizedBox(
-                  width: columnWidth,
-                  child: ViewersPage(
-                    isInitialized: _isInitialized,
-                    isServer: widget.isServer,
-                  )),
+              child: ViewersPage(
+                maxWidth: columnWidth,
+                isInitialized: _isInitialized,
+                isServer: widget.isServer,
+              ),
             ),
           if (!widget.isServer)
             Column(
@@ -86,21 +83,19 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                 const SizedBox(height: 36),
                 Expanded(
                   child: Center(
-                    child: SizedBox(
-                      width: columnWidth,
-                      child: TabBarView(
-                        controller: _tabController,
-                        children: [
-                          const IntroductionPage(),
-                          const StreamerPage(),
-                          const SchedulePage(),
-                          ViewersPage(
-                            isInitialized: _isInitialized,
-                            isServer: widget.isServer,
-                          ),
-                          const ThankingPage(),
-                        ],
-                      ),
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        const IntroductionPage(maxWidth: columnWidth),
+                        const StreamerPage(maxWidth: columnWidth),
+                        const SchedulePage(maxWidth: columnWidth),
+                        ViewersPage(
+                          maxWidth: columnWidth,
+                          isInitialized: _isInitialized,
+                          isServer: widget.isServer,
+                        ),
+                        const ThankingPage(maxWidth: columnWidth),
+                      ],
                     ),
                   ),
                 )

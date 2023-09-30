@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:pomo_latte_pumpkin/config.dart';
 import 'package:pomo_latte_pumpkin/models/streamer_info.dart';
 import 'package:pomo_latte_pumpkin/widgets/animated_expanding_card.dart';
+import 'package:pomo_latte_pumpkin/widgets/tab_container.dart';
 import 'package:pomo_latte_pumpkin/widgets/youtube_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class StreamerPage extends StatelessWidget {
-  const StreamerPage({super.key});
+  const StreamerPage({super.key, required this.maxWidth});
+
+  final double maxWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +18,20 @@ class StreamerPage extends StatelessWidget {
         (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
       );
 
-    return ListView.builder(
-        itemCount: streamerInfoSorted.length,
-        itemBuilder: (context, index) =>
-            _StreamerCard(streamerInfo: streamerInfoSorted[index]));
+    return TabContainer(
+        maxWidth: maxWidth,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+                width: double.infinity,
+                child: Text('ANIMATEUR ET ANIMATRICES',
+                    style: Theme.of(context).textTheme.titleLarge)),
+            ...streamerInfoSorted
+                .map((e) => _StreamerCard(streamerInfo: e))
+                .toList(),
+          ],
+        ));
   }
 }
 
