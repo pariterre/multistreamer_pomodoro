@@ -10,6 +10,7 @@ import 'package:pomo_latte_pumpkin/providers/streamers_provided.dart';
 import 'package:pomo_latte_pumpkin/screens/introduction_page.dart';
 import 'package:pomo_latte_pumpkin/screens/schedule_page.dart';
 import 'package:pomo_latte_pumpkin/screens/streamer_page.dart';
+import 'package:pomo_latte_pumpkin/screens/thanking_page.dart';
 import 'package:pomo_latte_pumpkin/screens/viewers_page.dart';
 import 'package:pomo_latte_pumpkin/widgets/background.dart';
 import 'package:pomo_latte_pumpkin/widgets/menu.dart';
@@ -32,6 +33,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     'Animateurs &\nAnimatrices',
     'Horaire',
     'Auditeurs &\nAuditrices',
+    'Remerciements',
   ];
 
   late final _tabController =
@@ -44,7 +46,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
 
     // The page should open on the last tab at the event
     if (isEventStarted) {
-      _tabController.animateTo(_tabMenu.length - 1);
+      _tabController.animateTo(3);
     }
   }
 
@@ -96,6 +98,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                             isInitialized: _isInitialized,
                             isServer: widget.isServer,
                           ),
+                          const ThankingPage(),
                         ],
                       ),
                     ),
