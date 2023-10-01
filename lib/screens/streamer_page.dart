@@ -53,10 +53,10 @@ class _StreamerCard extends StatelessWidget {
           ),
           InkWell(
               onTap: () {
-                launchUrl(Uri(scheme: 'https', path: streamerInfo.twitchUrl));
+                launchUrl(Uri.parse(streamerInfo.twitchUrl));
               },
               child: Text(
-                'https://${streamerInfo.twitchUrl}',
+                streamerInfo.twitchUrl,
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.underline,
@@ -82,12 +82,11 @@ class _StreamerCard extends StatelessWidget {
                             const SizedBox(height: 4),
                             InkWell(
                                 onTap: () {
-                                  launchUrl(Uri(
-                                      scheme: 'https',
-                                      path: streamerInfo.personalWebSite));
+                                  launchUrl(
+                                      Uri.parse(streamerInfo.personalWebSite!));
                                 },
                                 child: Text(
-                                  'https://${streamerInfo.personalWebSite}',
+                                  streamerInfo.personalWebSite!,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       decoration: TextDecoration.underline,

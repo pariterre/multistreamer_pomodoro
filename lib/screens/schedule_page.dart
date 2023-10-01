@@ -120,7 +120,7 @@ class _StreamerTile extends StatelessWidget {
                   const SizedBox(height: 8),
                   InkWell(
                       onTap: () {
-                        launchUrl(Uri(scheme: 'https', path: info.url));
+                        launchUrl(Uri.parse(info.url));
                       },
                       child: Text(
                         info.url,

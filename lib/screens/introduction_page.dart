@@ -56,13 +56,9 @@ class IntroductionPage extends StatelessWidget {
               'il y a un événement Facebook que vous pouvez joindre en '
               'guise de rappel, à l\'adresse suivante : '),
           InkWell(
-              onTap: () {
-                launchUrl(Uri(
-                    scheme: 'https',
-                    path: 'www.facebook.com/events/1557104731490847'));
-              },
+              onTap: () => launchUrl(Uri.parse(facebookEventUrl)),
               child: const Text(
-                'https://www.facebook.com/events/1557104731490847',
+                facebookEventUrl,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.underline,
