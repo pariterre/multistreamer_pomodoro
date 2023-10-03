@@ -198,6 +198,8 @@ final streamersInfo = [
         'souvent. Je suis un consultant SEO qui tente de rendre le marketing '
         'Web plus sympathique et empathique.',
     twitchUrl: 'https://twitch.tv/Le_Sketch',
+    presentationYoutubeId: '-L-6w6j5QqA',
+    philosophyYoutubeId: 'b_tMzOHvulU',
   ),
   StreamerInfo(
     'LizEMyers',
