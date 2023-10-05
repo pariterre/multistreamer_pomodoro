@@ -78,7 +78,7 @@ class _ChatterTile extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(
-                      'Participation : ${chatter.totalWatchingTime ~/ 60} minutes'),
+                      'Participation : ${chatter.totalWatchingTime ~/ 30} minutes'),
                   if (isServer)
                     InkWell(
                       onTap: () {
@@ -117,7 +117,7 @@ class _ChatterTile extends StatelessWidget {
                               children: [
                                 Text(streamer),
                                 Text(
-                                    '${chatter.watchingTime(of: streamer) ~/ 60} minutes'),
+                                    '${chatter.watchingTime(of: streamer) ~/ 30} minutes'),
                               ],
                             )),
                       ],
