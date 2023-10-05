@@ -31,7 +31,6 @@ class ThankingPage extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 18.0),
             child: Text(
-              '\u2022 elidelivre\n'
               '\u2022 LizEMyers\n'
               '\u2022 MemepAuteure\n'
               '\u2022 WayceUpenFoya',
