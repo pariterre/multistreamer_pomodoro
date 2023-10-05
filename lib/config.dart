@@ -77,8 +77,8 @@ final eventSchedule = [
       starting: DateTime(2023, 10, 6, 7, 30),
       length: const Duration(minutes: 30)),
   ScheduleInfo(
-      title: 'elidelivre',
-      url: 'https://twitch.tv/elidelivre',
+      title: 'Pariterre',
+      url: 'https://twitch.tv/pariterre',
       starting: DateTime(2023, 10, 6, 8, 0),
       length: const Duration(hours: 4)),
   ScheduleInfo(
@@ -87,8 +87,8 @@ final eventSchedule = [
       starting: DateTime(2023, 10, 6, 12, 0),
       length: const Duration(hours: 1, minutes: 30)),
   ScheduleInfo(
-      title: 'Pariterre',
-      url: 'https://twitch.tv/pariterre',
+      title: 'WayceUpenFoya (en relève à elidelivre)',
+      url: 'https://twitch.tv/elielivre',
       starting: DateTime(2023, 10, 6, 13, 30),
       length: const Duration(hours: 4)),
   ScheduleInfo(
