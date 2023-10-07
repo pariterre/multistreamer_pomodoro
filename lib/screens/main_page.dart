@@ -8,6 +8,7 @@ import 'package:pomo_latte_pumpkin/models/twitch_interface.dart';
 import 'package:pomo_latte_pumpkin/providers/chatters_provided.dart';
 import 'package:pomo_latte_pumpkin/providers/streamers_provided.dart';
 import 'package:pomo_latte_pumpkin/screens/introduction_page.dart';
+import 'package:pomo_latte_pumpkin/screens/prize_page.dart';
 import 'package:pomo_latte_pumpkin/screens/schedule_page.dart';
 import 'package:pomo_latte_pumpkin/screens/streamer_page.dart';
 import 'package:pomo_latte_pumpkin/screens/thanking_page.dart';
@@ -34,6 +35,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     'Horaire',
     'Auditeurs &\nAuditrices',
     'Remerciements',
+    'Tirage',
   ];
 
   late final _tabController =
@@ -95,6 +97,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                           isServer: widget.isServer,
                         ),
                         const ThankingPage(maxWidth: columnWidth),
+                        const PrizePage(maxWidth: columnWidth),
                       ],
                     ),
                   ),
