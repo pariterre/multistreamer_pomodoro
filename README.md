@@ -6,6 +6,8 @@ Il est important de suivre les étapes suivante suite au clonage de ce dépôt g
 
 ### Firebase
 
+NOTE: la base firebase a été retirée après l'événement pour être remplacée par les données de l'événement au format json et placé dans les assets. 
+
 1. Installer le [CLI Firebase](https://firebase.google.com/docs/cli#setup_update_cli). La façon la plus rapide, si Node.js est déjà installé, est avec `npm` :    
 
         npm install -g firebase-tools

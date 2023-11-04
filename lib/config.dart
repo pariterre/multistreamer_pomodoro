@@ -19,7 +19,9 @@ const selectedColor = Color.fromARGB(255, 87, 48, 3);
 const unselectedColor = Color.fromARGB(255, 238, 156, 63);
 
 bool get isEventStarted =>
-    true; //DateTime.now().compareTo(DateTime(2023, 10, 5, 14)) > 0;
+    DateTime.now().compareTo(DateTime(2023, 10, 5, 14)) > 0;
+bool get isEventFinished =>
+    DateTime.now().compareTo(DateTime(2023, 10, 8, 0)) > 0;
 
 const facebookEventUrl = 'https://facebook.com/events/1557104731490847';
 

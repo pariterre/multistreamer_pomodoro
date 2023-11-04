@@ -47,7 +47,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     _prepareListTwitchInterface(maxRetries: 10, maxWaitingTime: 2000);
 
     // The page should open on the last tab at the event
-    if (isEventStarted) {
+    if (isEventStarted && !isEventFinished) {
       _tabController.animateTo(3);
     }
   }

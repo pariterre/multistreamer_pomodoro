@@ -37,7 +37,7 @@ class ViewersPage extends StatelessWidget {
     final sortedChatters = [...chatters]
       ..sort((a, b) => b.totalWatchingTime - a.totalWatchingTime);
 
-    return !isEventStarted && !isServer
+    return (!isEventStarted && !isServer) && !isEventFinished
         ? const Text(
             'Lors de l\'événement, votre temps de participation sera enregistré ici!'
             'Revenez régulièrement sur cette page pour vous comparer aux autres participantes et participants ;-)')

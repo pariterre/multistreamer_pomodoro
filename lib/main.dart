@@ -1,9 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:pomo_latte_pumpkin/config.dart';
-import 'package:pomo_latte_pumpkin/firebase_options.dart';
 import 'package:pomo_latte_pumpkin/models/twitch_interface.dart';
 import 'package:pomo_latte_pumpkin/providers/chatters_provided.dart';
 import 'package:pomo_latte_pumpkin/providers/streamers_provided.dart';
@@ -14,7 +12,6 @@ import 'package:twitch_manager/twitch_app_info.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Intl.defaultLocale = 'fr_CA';
   await initializeDateFormatting();
 
